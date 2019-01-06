@@ -1,0 +1,57 @@
+﻿@model CqrsApp.ReadModel.Entities.Player
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="text-center">
+    <div class="breaker">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" width="256" height="256" alt="avatar">
+            <div class="breaker"></div>
+        }
+    </div>
+    <dl>
+        <dt>
+            @Html.LabelFor(model => model.Team.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Team.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlayerNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+    </dl>
+    <h3>Are you sure want to delete this player?</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            <span></span>
+            @Html.ActionLink("Back to List", "Index", null, new { @class= "btn btn-default" } )
+        </div>
+    }
+</div>

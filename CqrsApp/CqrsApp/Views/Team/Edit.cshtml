@@ -1,0 +1,52 @@
+﻿@model CqrsApp.ReadModel.Entities.Team
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container">
+    <h3>Team info</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-center">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" width="256" height="256" alt="avatar">
+                    <div class="breaker"></div>
+                }
+            </div>
+        </div>
+        <div class="col-md-9">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @using (Html.BeginForm("Edit", "Team", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => Model.Id)
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Name: </label>
+                    <div>
+                        @Html.EditorFor(m => Model.Name, new { @class = "" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Image Source: </label>
+                    <div>
+                        @Html.EditorFor(m => Model.ImageUrl, new { @class = "" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                    </div>
+                    <div>
+                        <input class="btn btn-primary" type="submit" value="Save" />
+                        <span></span>
+                        <input type="reset" class="btn btn-default" value="Cancel">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

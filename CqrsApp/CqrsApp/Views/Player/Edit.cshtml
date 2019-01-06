@@ -1,0 +1,123 @@
+﻿@model CqrsApp.Models.PlayerViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container">
+    <h3>Player info</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-center">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" width="256" height="256" alt="avatar">
+                    <div class="breaker"></div>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                Paste url for image in <strong>Photo Src</strong>. Or upload image from disk.
+            </div>
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @using (Html.BeginForm("Edit", "Player", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => Model.PlayerId)
+                @Html.HiddenFor(m => Model.IsEdit)
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Photo Src: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.ImageUrl, new { @class = "form-control", @id="imgUrl" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Name: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.Name, new { @class = "form-control" })<br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Surname: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.Surname, new { @class = "form-control" })<br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Country: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.Country, new { @class = "form-control" })<br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Age: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.Age, new { @class = "form-control" })<br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Number: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.PlayerNumber, new { @class = "form-control" })<br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Select Team: </label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => Model.TeamId, (IEnumerable<SelectListItem>)ViewData["AllTeams"], new { @class = "form-control", @style = "width:155px" })<br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Birthday: </label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => Model.DayBirth, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Need Upload Image: </label>
+                    <div class="col-md-8">
+                        <input type="checkbox" class="custom-checkbox" style="margin-top: 8px;" checked="@Model.ShouldUploadAvatarFromDisk" onclick="checkboxClick()" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="upload-avatar">
+                        <div class="col-md-8">
+                            <img id="defaul-img" src="@Model.DefaultImg" class="avatar img-circle" alt="avatar">
+                            <div class="breaker"></div>
+                            <input type="file" name="file" id="upload-file" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-8">
+                        <input class="btn btn-primary" type="submit" value="Save" />
+                        <span></span>
+                        <input type="reset" class="btn btn-default" value="Cancel">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/scripts/jquery-3.3.1.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/scripts/main.js")"></script>
+

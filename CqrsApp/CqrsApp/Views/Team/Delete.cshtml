@@ -1,0 +1,31 @@
+﻿@model CqrsApp.ReadModel.Entities.Team
+@{
+    ViewBag.Title = "Delete Team";
+}
+<div class="text-center">
+    <div class="breaker">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" width="256" height="256" alt="avatar">
+            <div class="breaker"></div>
+        }
+    </div>
+    <dl class="">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <span></span>
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CqrsApp.ReadModel.Entities.Player>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="text-align:  center; margin-left:auto; margin-right:auto;">
+    <h2>Players</h2>
+</div>
+
+<table class="table table-responsive table-condensed">
+    <tr>
+        <th class="col-sm-1" align="right">Photo</th>
+        <th class="col-sm-1" align="right">Name</th>
+        <th class="col-sm-1" align="right">Surname</th>
+        <th class="col-sm-1" align="right">Country</th>
+        <th class="col-sm-1" align="right">Age</th>
+        <th class="col-sm-1" align="right">Number</th>
+        <th class="col-sm-1" align="right">Team</th>
+        <th class="col-sm-1" align="right">Birthday</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td align="left"><img alt="Cover" src="@item.ImageUrl" width="200" height="200" /></td>
+            <td align="left">@item.Name</td>
+            <td align="left">@item.Surname</td>
+            <td align="left">@item.Country</td>
+            <td align="left">@item.Age</td>
+            <td align="left">@item.PlayerNumber</td>
+            <td align="left">@item.Team.Name</td>
+            <td align="left">@item.DayBirth.Value.ToString("MM/dd/yyyy")</td>
+            <td align="left">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</td>
+            <td align="left">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</td>
+        </tr>
+    }
+</table>
+@CqrsApp.Helpers.PaginationHelper.CreatePagination(Html, ViewBag.TotalPlayersCount)
+<div class="text-center">
+    @Html.ActionLink("Add new player", "Create", null, new { @class = "btn btn-success" })
+    <span></span>
+    @Html.ActionLink("Go to Teams", "Index", "Team", null, new { @class = "btn btn-warning" })
+</div>
